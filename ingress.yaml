@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-app-ingress
+  annotations:
+    # Menggunakan ingress controller Traefik bawaan K3s
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-app-service # Nama Service yang kita buat sebelumnya
+            port:
+              number: 80 # Port Service yang kita tuju
