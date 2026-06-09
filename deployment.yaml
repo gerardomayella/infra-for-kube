@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: web-app
-          image: gerardomayella/web-app-for-kube:latest
+          image: gerardomayella/web-app-for-kube:f72034e
           ports:
             - containerPort: 8080
           resources:
