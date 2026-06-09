@@ -5,11 +5,11 @@ metadata:
   labels:
     app: web-app
 spec:
-  type: ClusterIP # Hanya diakses secara internal di dalam klaster, dihubungkan lewat Ingress nanti
+  type: ClusterIP
   ports:
-  - port: 80 # Port yang dibuka oleh Service
-    targetPort: 8080 # Port yang dijalankan di dalam kontainer web-app Anda
-    protocol: TCP
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
   selector:
     app: web-app
 
@@ -21,10 +21,10 @@ metadata:
   labels:
     app: database
 spec:
-  type: ClusterIP # Database hanya boleh diakses oleh aplikasi di dalam klaster demi keamanan
+  type: ClusterIP
   ports:
-  - port: 3306 # Port standar MySQL
-    targetPort: 3306
-    protocol: TCP
+    - port: 3306
+      targetPort: 3306
+      protocol: TCP
   selector:
     app: database

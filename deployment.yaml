@@ -5,7 +5,7 @@ metadata:
   labels:
     app: web-app
 spec:
-  replicas: 2 # Menjalankan 2 replika web app agar high availability
+  replicas: 2
   selector:
     matchLabels:
       app: web-app
@@ -15,21 +15,17 @@ spec:
         app: web-app
     spec:
       containers:
-      - name: web-app
-        # Image ini akan otomatis terupdate oleh Github Actions ketika Anda push
-        image: gerardomayella/web-app-for-kube:latest
-        ports:
-        - containerPort: 8080
-        resources:
-          limits:
-            cpu: "500m"
-            memory: "256Mi"
-          requests:
-            cpu: "250m"
-            memory: "128Mi"
-      # Hapus tanda '#' di bawah ini jika Anda ingin mengunci agar web app ini HANYA berjalan di worker-1
-      # nodeSelector:
-      #   peruntukan: web-app
+        - name: web-app
+          image: gerardomayella/web-app-for-kube:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+            requests:
+              cpu: "250m"
+              memory: "128Mi"
 
 ---
 apiVersion: apps/v1
@@ -39,7 +35,7 @@ metadata:
   labels:
     app: database
 spec:
-  replicas: 1 # Database cukup 1 replika agar datanya konsisten
+  replicas: 1
   selector:
     matchLabels:
       app: database
@@ -49,22 +45,19 @@ spec:
         app: database
     spec:
       containers:
-      - name: database
-        image: mysql:8.0
-        ports:
-        - containerPort: 3306
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: "rahasia123"
-        - name: MYSQL_DATABASE
-          value: "mydb"
-        resources:
-          limits:
-            cpu: "1"
-            memory: "512Mi"
-          requests:
-            cpu: "500m"
-            memory: "256Mi"
-      # Hapus tanda '#' di bawah ini jika Anda ingin mengunci agar database ini HANYA berjalan di worker-2
-      # nodeSelector:
-      #   peruntukan: database
+        - name: database
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "rahasia123"
+            - name: MYSQL_DATABASE
+              value: "mydb"
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "500m"
+              memory: "256Mi"
