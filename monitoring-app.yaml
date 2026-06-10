@@ -24,6 +24,10 @@ spec:
           serviceMonitor:
             https: true
             insecureSkipVerify: true
+        grafana:
+          service:
+            type: NodePort
+            nodePort: 32408
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: monitoring
